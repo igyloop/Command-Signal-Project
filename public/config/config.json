@@ -1,0 +1,4 @@
+{
+    "dispositivoIoT": "http://localhost:5000",
+    "tiempoDeEspera": 5000
+}

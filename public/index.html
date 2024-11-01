@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control de Brazo Robótico</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <video id="backgroundVideo" autoplay loop muted>
+        <source src="fondo.mp4" type="video/mp4">
+        Tu navegador no admite videos.
+    </video>
+    <div class="overlay"></div>
+    <div class="container">
+        <h1>Control de Brazo Robótico</h1>
+        <div class="tabs">
+            <button class="tab" onclick="showTab('loginTab')">Iniciar Sesión</button>
+            <button class="tab" onclick="showTab('registerTab')">Registrar</button>
+        </div>
+        <div id="loginTab" class="tab-content">
+            <h2>Iniciar Sesión</h2>
+            <input type="email" id="loginEmail" placeholder="Email" required>
+            <input type="password" id="loginPassword" placeholder="Contraseña" required>
+            <button onclick="connect()">Iniciar Sesión</button>
+        </div>
+        <div id="registerTab" class="tab-content" style="display:none;">
+            <h2>Registrar</h2>
+            <input type="text" id="registerName" placeholder="Nombre" required>
+            <input type="email" id="registerEmail" placeholder="Email" required>
+            <input type="password" id="registerPassword" placeholder="Contraseña" required>
+            <button onclick="register()">Registrar</button>
+        </div>
+
+        <!-- Contenedor para la cámara -->
+        <div class="camera-container" id="cameraContainer">
+            <video id="video" autoplay></video>
+            <div class="camera-controls">
+                <button id="toggleCamera">Minimizar</button>
+                <button id="closeCamera">Cerrar</button>
+            </div>
+            <div id="robotMovements">
+                <h2>Movimientos del robot</h2>
+                <p id="robotStatus">El robot está en reposo.</p>
+            </div>
+            <div class="gesture-controls">
+                <button id="gestureControl">Activar Control por Gestos</button>
+                <button id="stopGestureControl" style="display:none;">Desactivar Control por Gestos</button>
+            </div>
+        </div>
+
+        <div class="user-status" id="userStatus" style="display:none;">
+            <h2>Estado del Usuario</h2>
+            <p id="userState">Desconectado</p>
+            <button onclick="disconnect()">Desconectar</button>
+        </div>
+
+        <div class="waitlist" id="waitlist" style="display:none;">
+            <h2>Lista de Usuarios</h2>
+            <p id="waitlistMessage">No hay usuarios en espera.</p>
+        </div>
+
+        <div class="notificaciones" id="notificaciones" style="display:none;">
+            <h2>Notificaciones</h2>
+            <p>Bienvenido a la plataforma.</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

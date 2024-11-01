@@ -1,0 +1,10 @@
+{
+    "name": "robot-arm-control",
+    "version": "1.0.0",
+    "main": "server/server.js",
+    "dependencies": {
+      "express": "^4.17.1",
+      "mongoose": "^5.10.9",
+      "socket.io": "^2.3.0"
+    }
+  }
