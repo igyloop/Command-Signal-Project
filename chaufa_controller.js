@@ -11,7 +11,7 @@ app.use(express.static('public'));
 angulo_base = 90;
 angulo_fordback = 70;
 angulo_updown = 45;
-//angulo_garra = 165;
+angulo_garra = 115;
 
 function volver(res) {
     res.redirect('/');
@@ -43,7 +43,7 @@ board.on('ready', () => {
     servo_base.to(angulo_base,5000);
     servo_fordback.to(angulo_fordback,5000);
     servo_updown.to(angulo_updown, 5000);
-    //servo_garra.to(angulo_garra,5000);
+    servo_garra.to(angulo_garra,5000);
 
     // MOVIMIENTO DE LA BASE
     app.get('/L', (req, res) => {
@@ -87,12 +87,12 @@ board.on('ready', () => {
     //MOVIMIENTO GARRA
     app.get('/Open', (req, res) => {
         console.log(`Abierto`);
-        servo_garra.to(165, 500, volver(res));
+        servo_garra.to(115, 500, volver(res));
     });
 
     app.get('/Close', (req, res) => {
         console.log(`Cerrado`);
-        servo_garra.to(135, 500, volver(res)); 
+        servo_garra.to(103, 500, volver(res)); 
     });
 
 });
