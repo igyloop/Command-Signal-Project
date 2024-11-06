@@ -7,7 +7,7 @@ from control_interface.serial_communication import SerialCommunication
 class CarGestureControl:
     def __init__(self):
         print("Probando")
-        self.cap = cv2.VideoCapture(1)
+        self.cap = cv2.VideoCapture(0)
         self.cap.set(3, 720)
         self.cap.set(4, 360)
         print("camera encontrado")
@@ -24,7 +24,7 @@ class CarGestureControl:
             print("command: ")
             print(command)
             try:
-                response = requests.get(f"http://172.23.116.245:3000/{command}")
+                response = requests.get(f"http://localhost:3000/{command}")
             except requests.exceptions.Timeout:
                 # Manejar el caso de que la solicitud excede el tiempo de espera
                 print("La solicitud ha tardado demasiado. Verifica si el servidor está disponible.")
