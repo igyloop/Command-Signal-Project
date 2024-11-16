@@ -1,13 +1,13 @@
 const express = require('express');
 const {Board, Servo} = require("johnny-five");
-const {EtherPortClient} = require('etherport-client');
+//const {EtherPortClient} = require('etherport-client');
 
 const board = new Board({
-    port: new EtherPortClient({
-        host: '192.168.200.189',
-        port: 3030
-    }),
-    repl: true
+//    port: new EtherPortClient({
+//        host: '192.168.200.189',
+//        port: 3030
+//    }),
+//    repl: true
 });
 const controller = "PCA9685";
 
