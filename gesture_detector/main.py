@@ -12,12 +12,16 @@ class GestureDetector:
 
     def fingers_interpretation(self, fingers_up: List[int]) -> str:
         commands = {
-            (1, 1, 0, 0, 0): 'U',
-            (1, 0, 0, 0, 1): 'D',
-            (1, 0, 0, 0, 0): 'L',
-            (0, 0, 0, 0, 1): 'R',
-            (1, 1, 1, 1, 1): 'F',
-            (0, 0, 0, 0, 0): 'B',
+            (1, 1, 1, 1, 1): 'HombroAdelante',
+            (0, 0, 0, 0, 0): 'HombroAtras',
+            (1, 0, 0, 0, 0): 'BaseLeft',
+            (0, 0, 0, 0, 1): 'BaseRight',
+            (1, 1, 0, 0, 0): 'CodoAdelante',
+            (1, 0, 0, 0, 1): 'CodoAtras',
+            (0, 1, 0, 0, 1): 'MunecaAdelante',
+            (1, 1, 0, 0, 1): 'MunecaAtras',
+            (0, 0, 1, 1, 1): 'MunecaIzquierda',
+            (1, 0, 1, 1, 1): 'MunecaDerecha',
             (0, 1, 1, 0, 0): 'Open',
             (1, 1, 1, 0, 0): 'Close',
         }
