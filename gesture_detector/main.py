@@ -9,6 +9,7 @@ class GestureDetector:
     def __init__(self):
         self.hand_detector = HandProcessing(threshold_detection=0.9)
         self.draw = DrawingFunctions()
+        self.last_command = "" 
 
     def fingers_interpretation(self, fingers_up: List[int]) -> str:
         commands = {
@@ -34,6 +35,7 @@ class GestureDetector:
         if len(hand_list) == 21:
             fingers_up = self.hand_detector.fingers_up(hand_list)
             command = self.fingers_interpretation(fingers_up)
+            self.last_command = command 
             frame = self.draw.draw_actions(command, frame)
             return command, frame
         else:
