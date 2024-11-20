@@ -30,4 +30,4 @@ def gesture_command():
     return jsonify({"command": "DemoCommand"})  # Este es solo un ejemplo, conecta con tu lógica real
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='127.0.0.4', port=3030, debug=True)

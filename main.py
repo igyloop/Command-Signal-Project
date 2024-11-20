@@ -8,8 +8,8 @@ class CarGestureControl:
     def __init__(self):
         print("Probando")
         self.cap = cv2.VideoCapture(0)
-        self.cap.set(3, 720)
-        self.cap.set(4, 360)
+        self.cap.set(3, 1920)
+        self.cap.set(4, 1080)
         print("camera encontrado")
         self.hand_gesture = GestureDetector()
         

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de ejemplo</title>
+    <link rel="stylesheet" href="lib/bootstrap-4.3.1-dist/css/bootstrap.css">
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="lib/bootstrap-4.3.1-dist/js/bootstrap.js"></script>
+    
+</head>
+<body>
+    <div class="container">
+        <h1>Control Brazo Robotico</h1>
+        <p>Prueba de parametros de Brazo Robotico</p>
+        <div class="row">
+            <div class="col">
+                <form> 
+                    <div class="form-group">
+                      <label for="eje5">Eje 5</label>
+                      <input type="range" class="form-control-range eje" eje="5" id="eje5">
+                    </div>  
+                    <div class="form-group">
+                      <label for="eje4">Eje 4</label>
+                      <input type="range" class="form-control-range eje" eje="4" id="eje4">
+                    </div>  
+                    <div class="form-group">
+                      <label for="eje3">Eje 3</label>
+                      <input type="range" class="form-control-range eje" eje="3" id="eje3">
+                    </div>  
+                    <div class="form-group">
+                      <label for="eje2">Eje 2</label>
+                      <input type="range" class="form-control-range eje" eje="2" id="eje2">
+                    </div>
+                    <div class="form-group">
+                      <label for="eje1">Eje 1</label>
+                      <input type="range" class="form-control-range eje" eje="1" id="eje1">
+                    </div>
+                    <div class="form-group">
+                        <label for="eje0">Eje 0</label>
+                        <input type="range" class="form-control-range eje" eje="0" id="eje0">
+                    </div>
+                  </form>
+            </div>
+            <div class="cols">
+                <img src="img/modelo_01.jpg" alt="" width="400">
+          
+            </div>
+        </div>
+        <div class="row">
+            <div class="cols">
+                <button onclick="add_event()" class="btn btn-primary">Add</button>
+                <button onclick="setInitPosition()">Pos Init</button>
+                <textarea name="" id="eventos" class="form-control"></textarea>
+                <button onclick="ejecuteMacro()">Ejecute Macro</button>
+            </div>
+        </div>         
+    </div>
+    
+    <script>
+        var last_select = -1;
+        var json_db = [];
+        var ejes = [];
+        ejes[0] = {
+            grade: 90
+        };
+        ejes[1] = {
+            grade: 90
+        };
+        ejes[2] = {
+            grade: 90
+        };
+        ejes[3] = {
+            grade: 90
+        };
+        ejes[4] = {
+            grade: 90
+        };
+        ejes[5] = {
+            grade: 90
+        };
+        var socket;
+        $(window).ready(()=>{
+            console.log("Jquery init")
+
+            $(".eje").change(function(){
+                //console.log("Cambiando")
+                var id = $(this).attr("id");
+                var eje = $(this).attr("eje");
+                var porc = $(this).val()
+                // x = (30*180)/100
+                grade = (porc*180)/100
+                console.log(eje, grade)
+                ejes[eje].grade = grade
+
+                send_order({
+                    "eje": parseInt(eje),
+                    "grade": grade
+                });
+            })
+            $(".eje").on('input', function(){
+                var id = $(this).attr("id");
+                var eje = $(this).attr("eje");
+
+                var porc = $(this).val()
+                // x = (30*180)/100
+                grade = (porc*180)/100
+                console.log(eje, grade)
+                last_select = eje;
+                send_order({
+                    "eje": parseInt(eje),
+                    "grade": grade
+                });
+            })
+
+
+            socket = io();
+
+            // Escucha el evento 'mensajeDelServidor' desde el servidor
+            socket.on('mensajeServidor', function(data) {
+                console.log(data);
+            });
+            socket.on('set_post_init_res', function(data) {
+                console.log(data);
+            });
+
+            // Envía un mensaje al servidor
+            socket.emit('mensajeCliente', { mensaje: 'Hola, servidor!' });
+        })
+
+        function send_order(json){
+            // Envio de Orden a Server
+            socket.emit('eje_set_req', json);
+        }
+        function add_event(){
+            
+            json_db.push({
+                eje: parseInt(last_select),
+                grade: parseFloat(ejes[last_select].grade) 
+            })
+            $("#eventos").html(JSON.stringify(json_db))
+
+        }
+        function ejecuteMacro(){
+            socket.emit("read_macro_req", JSON.stringify(json_db))
+        }
+        function setInitPosition(){
+            socket.emit("set_post_init_req", JSON.stringify(json_db))
+        }
+    </script>
+</body>
+</html>
